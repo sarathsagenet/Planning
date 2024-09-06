@@ -59,10 +59,10 @@
   </calculationView>
   <calculationView xsi:type="Calculation:ProjectionView" id="pBUT000">
     <viewAttributes>
-      <viewAttribute id="CLIENT"/>
-      <viewAttribute id="PARTNER"/>
       <viewAttribute id="SoldTo_Description"/>
-    </viewAttributes>
+    
+      <viewAttribute id="CLIENT"/>
+      <viewAttribute id="PARTNER"/></viewAttributes>
     <calculatedViewAttributes/>
     <input node="BUT000">
       <mapping xsi:type="Calculation:AttributeMapping" target="SoldTo_Description" source="NAME_ORG1"/>
@@ -83,6 +83,11 @@
       <descriptions defaultDescription="NAME_ORG1"/>
       <keyMapping columnObjectName="jGetDescription" columnName="SoldTo_Description"/>
     </attribute>
+  
+    <attribute id="SoldTo_ZerosRemoved" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="SoldTo_ZerosRemoved"/>
+      <keyMapping columnObjectName="jGetDescription" columnName="SoldTo_ZerosRemoved"/>
+    </attribute>
   </attributes>
   <calculatedAttributes/>
   <baseMeasures/>
@@ -92,35 +97,35 @@
 <layout>
   <shapes>
     <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
-      <upperLeftCorner x="222.90725140105906" y="112"/>
+      <upperLeftCorner x="222" y="112"/>
     
       <rectangleSize width="160"/>
     </shape>
   
     <shape expanded="true" modelObjectName="pKNVP" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="97.99999999999999" y="481.9999988079071"/>
+      <upperLeftCorner x="97" y="481"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape expanded="true" modelObjectName="getUniqueSoldTos" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="91.99999999999999" y="376.9999988079071"/>
+      <upperLeftCorner x="91" y="376"/>
       <rectangleSize height="30" width="172"/>
     </shape>
     <shape expanded="true" modelObjectName="jGetDescription" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="222.90725140105906" y="217"/>
+      <upperLeftCorner x="222" y="217"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape modelObjectName="getUniqueSoldTos" modelObjectNameSpace="jGetDescription" modelObjectType="JoinNodeInput">
       <upperLeftCorner x="20" y="30"/>
-      <rectangleSize width="169.10546875"/>
+      <rectangleSize width="169"/>
     </shape>
     <shape modelObjectName="pBUT000" modelObjectNameSpace="jGetDescription" modelObjectType="JoinNodeInput">
       <upperLeftCorner x="320" y="30"/>
-      <rectangleSize width="180.77294921875"/>
+      <rectangleSize width="180"/>
     </shape>
     <shape expanded="true" modelObjectName="pBUT000" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="313.99999999999994" y="376.9999988079071"/>
+      <upperLeftCorner x="313" y="376"/>
       <rectangleSize height="30" width="160"/>
     </shape>
   </shapes>
 </layout>
-</Calculation:scenario> 
+</Calculation:scenario>
