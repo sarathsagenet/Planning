@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="SoldTo" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="SoldTo"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="KNVP">
+    <resourceUri>KNVP</resourceUri>
+  </DataSource>
+  <DataSource id="BUT000">
+    <resourceUri>BUT000</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="pKNVP" filterExpressionLanguage="SQL">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="VKORG"/>
+      <viewAttribute id="PARVW"/>
+      <viewAttribute id="SoldTo"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="KNVP">
+      <mapping xsi:type="Calculation:AttributeMapping" target="SoldTo" source="KUNN2"/>
+    </input>
+    <filter>&quot;PARVW&quot; = 'AG' and &quot;VKORG&quot; IN('0010', '0090')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="getUniqueSoldTos">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="SoldTo"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+    <input node="pKNVP"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="jGetDescription" cardinality="C1_1" joinType="leftOuter">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="SoldTo"/>
+      <viewAttribute id="SoldTo_Description"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="SoldTo_ZerosRemoved" datatype="NVARCHAR" length="10" expressionLanguage="SQL">
+        <formula>LTRIM(&quot;SoldTo&quot;,'0')</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="getUniqueSoldTos">
+      <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SoldTo" source="SoldTo"/>
+    </input>
+    <input node="pBUT000">
+      <mapping xsi:type="Calculation:AttributeMapping" target="SoldTo_Description" source="SoldTo_Description"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="CLIENT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SoldTo" source="PARTNER"/>
+    </input>
+    <joinAttribute name="MANDT"/>
+    <joinAttribute name="SoldTo"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="pBUT000">
+    <viewAttributes>
+      <viewAttribute id="CLIENT"/>
+      <viewAttribute id="PARTNER"/>
+      <viewAttribute id="SoldTo_Description"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="BUT000">
+      <mapping xsi:type="Calculation:AttributeMapping" target="SoldTo_Description" source="NAME_ORG1"/>
+    </input>
+  </calculationView>
+</calculationViews>
+<logicalModel id="jGetDescription">
+  <attributes>
+    <attribute id="MANDT" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="MANDT"/>
+      <keyMapping columnObjectName="jGetDescription" columnName="MANDT"/>
+    </attribute>
+    <attribute id="SoldTo" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="KUNN2"/>
+      <keyMapping columnObjectName="jGetDescription" columnName="SoldTo"/>
+    </attribute>
+    <attribute id="SoldTo_Description" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="NAME_ORG1"/>
+      <keyMapping columnObjectName="jGetDescription" columnName="SoldTo_Description"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="222.90725140105906" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="pKNVP" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="97.99999999999999" y="481.9999988079071"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="getUniqueSoldTos" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="91.99999999999999" y="376.9999988079071"/>
+      <rectangleSize height="30" width="172"/>
+    </shape>
+    <shape expanded="true" modelObjectName="jGetDescription" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="222.90725140105906" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="getUniqueSoldTos" modelObjectNameSpace="jGetDescription" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="169.10546875"/>
+    </shape>
+    <shape modelObjectName="pBUT000" modelObjectNameSpace="jGetDescription" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="180.77294921875"/>
+    </shape>
+    <shape expanded="true" modelObjectName="pBUT000" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="313.99999999999994" y="376.9999988079071"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

@@ -4,5 +4,11 @@
       "object": "KNVP",
       "schema": "SAPABAP1"
     }
+  },
+  "BUT000": {
+    "target": {
+      "object": "BUT000",
+      "schema": "SAPABAP1"
+    }
   }
 }
