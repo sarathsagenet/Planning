@@ -1,0 +1,8 @@
+{
+  "KNVP": {
+    "target": {
+      "object": "KNVP",
+      "schema": "SAPABAP1"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+ID: Planning
+_schema-version: '2.1'
+description: Planning
+version: 0.0.1
+modules:
+  - name: PlanningApp
+    type: hdb
+    path: db
+    requires:
+      - name: hdi_db_planning
+        properties:
+          TARGET_CONTAINER: '~{hdi-container-name}'
+      - name: cross-container-service-1
+        group: SERVICE_REPLACEMENTS
+        properties:
+          key: HanaBackendServiceConnection
+          service: '~{the-service-name}'
+resources:
+  - name: hdi_db_planning
+    parameters:
+      config:
+        schema: Planning
+    properties:
+      hdi-container-name: '${service-name}'
+    type: com.sap.xs.hdi-container
+  - name: cross-container-service-1
+    parameters:
+      service-name: XS_HANA_DB
+    properties:
+      the-service-name: '${service-name}'
+    type: org.cloudfoundry.existing-service
