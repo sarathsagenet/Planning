@@ -1,0 +1,13 @@
+{
+  "role": {
+    "name": "planningObjectAccess",
+    "schema_privileges": [
+      {
+        "privileges": [
+          "SELECT",
+          "EXECUTE"
+        ]
+      }
+    ]
+  }
+}
