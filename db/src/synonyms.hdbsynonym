@@ -10,5 +10,11 @@
       "object": "BUT000",
       "schema": "SAPABAP1"
     }
+  },
+  "CEPCT": {
+    "target": {
+      "object": "CEPCT",
+      "schema": "SAPABAP1"
+    }
   }
 }
