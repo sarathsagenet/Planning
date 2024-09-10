@@ -16,5 +16,29 @@
       "object": "CEPCT",
       "schema": "SAPABAP1"
     }
+  },
+  "SKB1": {
+    "target": {
+      "object": "SKB1",
+      "schema": "SAPABAP1"
+    }
+  },
+  "SKAT": {
+    "target": {
+      "object": "SKAT",
+      "schema": "SAPABAP1"
+    }
+  },
+  "CSKS": {
+    "target": {
+      "object": "CSKS",
+      "schema": "SAPABAP1"
+    }
+  },
+  "CSKT": {
+    "target": {
+      "object": "CSKT",
+      "schema": "SAPABAP1"
+    }
   }
 }

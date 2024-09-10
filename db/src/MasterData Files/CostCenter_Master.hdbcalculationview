@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CostCenter_Master" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="CostCenter Master Data"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="CSKS">
+    <resourceUri>CSKS</resourceUri>
+  </DataSource>
+  <DataSource id="CSKT">
+    <resourceUri>CSKT</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="pCSKS" filterExpressionLanguage="SQL">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="KOKRS"/>
+      <viewAttribute id="KOSTL"/>
+      <viewAttribute id="DATBI"/>
+      <viewAttribute id="PRCTR"/>
+      <viewAttribute id="BUKRS"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="CSKS"/>
+    <filter>(&quot;BUKRS&quot; IN ('0010', '0090')) AND (&quot;KOKRS&quot; = '0010') AND (&quot;DATBI&quot; &gt;= CURRENT_DATE)</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="pCSKT" filterExpressionLanguage="SQL">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="SPRAS"/>
+      <viewAttribute id="KOSTL"/>
+      <viewAttribute id="DATBI"/>
+      <viewAttribute id="KOKRS"/>
+      <viewAttribute id="LTEXT"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="CSKT"/>
+  
+    <filter>(&quot;KOKRS&quot; = '0010') AND (&quot;DATBI&quot; &gt;= CURRENT_DATE)</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="jGetDescription" cardinality="C1_1" joinType="textTable" languageColumn="SPRAS">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="CostCenter"/>
+      <viewAttribute id="PRCTR"/>
+      <viewAttribute id="BUKRS"/>
+      <viewAttribute id="CostCenter_Description"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="pCSKS">
+      <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CostCenter" source="KOSTL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRCTR" source="PRCTR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+    </input>
+    <input node="pCSKT">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CostCenter_Description" source="LTEXT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CostCenter" source="KOSTL"/>
+    </input>
+    <joinAttribute name="MANDT"/>
+    <joinAttribute name="CostCenter"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="jGetDescription">
+  <attributes>
+    <attribute id="MANDT" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="MANDT"/>
+      <keyMapping columnObjectName="jGetDescription" columnName="MANDT"/>
+    </attribute>
+    <attribute id="CostCenter" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="KOSTL"/>
+      <keyMapping columnObjectName="jGetDescription" columnName="CostCenter"/>
+    </attribute>
+    <attribute id="PRCTR" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRCTR"/>
+      <keyMapping columnObjectName="jGetDescription" columnName="PRCTR"/>
+    </attribute>
+    <attribute id="BUKRS" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="BUKRS"/>
+      <keyMapping columnObjectName="jGetDescription" columnName="BUKRS"/>
+    </attribute>
+    <attribute id="CostCenter_Description" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="LTEXT"/>
+      <keyMapping columnObjectName="jGetDescription" columnName="CostCenter_Description"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes>
+    <calculatedAttribute id="CC_CostCenter_ZerosRemoved" order="6" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CostCenter without Zeros">
+        <comment text="CostCenter Without Zeros"/>
+      </descriptions>
+      <keyCalculation datatype="NVARCHAR" expressionLanguage="SQL" length="10">
+        <formula>LTRIM(&quot;CostCenter&quot;,'0')</formula>
+      </keyCalculation>
+      </calculatedAttribute>
+    <calculatedAttribute id="CC_ProfitCenter_ZerosRemoved" order="7" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ProfitCenter without Zeros">
+        <comment text="ProfitCenter without Zeros"/>
+      </descriptions>
+      <keyCalculation datatype="NVARCHAR" expressionLanguage="SQL" length="10">
+        <formula>LTRIM(&quot;PRCTR&quot;,'0')</formula>
+      </keyCalculation>
+      </calculatedAttribute>
+  </calculatedAttributes>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="221.11302679000914" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="pCSKS" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="376.9999988079071"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="pCSKT" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="302.00000000000006" y="376.9999988079071"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="jGetDescription" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="221.11302679000914" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="pCSKS" modelObjectNameSpace="jGetDescription" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="125.10693359375"/>
+    </shape>
+    <shape modelObjectName="pCSKT" modelObjectNameSpace="jGetDescription" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="125.10693359375"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

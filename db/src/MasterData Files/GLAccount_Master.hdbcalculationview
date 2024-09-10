@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="GLAccount_Master" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="GLAccount Master Data"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="SKB1">
+    <resourceUri>SKB1</resourceUri>
+  </DataSource>
+  <DataSource id="SKAT">
+    <resourceUri>SKAT</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="pSKB1" filterExpressionLanguage="SQL">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="BUKRS"/>
+      <viewAttribute id="SAKNR"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="SKB1"/>
+    <filter>(&quot;BUKRS&quot; IN ('0010', '0090')) AND ((&quot;SAKNR&quot; &gt;= '0000400000') AND (&quot;SAKNR&quot; &lt;= '0000799999'))</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="pSKAT" filterExpressionLanguage="SQL">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="SPRAS"/>
+      <viewAttribute id="KTOPL"/>
+      <viewAttribute id="SAKNR"/>
+      <viewAttribute id="TXT50"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="SKAT"/>
+    <filter>((&quot;SAKNR&quot; &gt;= '0000400000') AND (&quot;SAKNR&quot; &lt;= '0000799999')) AND (&quot;KTOPL&quot; = '0010')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="jGetDescription" cardinality="C1_1" joinType="textTable" languageColumn="SPRAS">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="SAKNR"/>
+      <viewAttribute id="TXT50"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="pSKB1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SAKNR" source="SAKNR"/>
+    </input>
+    <input node="pSKAT">
+      <mapping xsi:type="Calculation:AttributeMapping" target="TXT50" source="TXT50"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SAKNR" source="SAKNR"/>
+    </input>
+    <joinAttribute name="MANDT"/>
+    <joinAttribute name="SAKNR"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="jGetDescription">
+  <attributes>
+    <attribute id="MANDT" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="MANDT"/>
+      <keyMapping columnObjectName="jGetDescription" columnName="MANDT"/>
+    </attribute>
+    <attribute id="SAKNR" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="SAKNR"/>
+      <keyMapping columnObjectName="jGetDescription" columnName="SAKNR"/>
+    </attribute>
+    <attribute id="TXT50" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="TXT50"/>
+      <keyMapping columnObjectName="jGetDescription" columnName="TXT50"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes>
+    <calculatedAttribute id="CC_GLAccount_ZerosRemoved" order="4" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="GLAccount without Prefix Zeros"/>
+      <keyCalculation datatype="NVARCHAR" expressionLanguage="SQL" length="10">
+        <formula>LTRIM(&quot;SAKNR&quot;,'0')</formula>
+      </keyCalculation>
+    </calculatedAttribute>
+  </calculatedAttributes>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="221" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="pSKB1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="376"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="pSKAT" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="302" y="376"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="jGetDescription" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="221" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="pSKB1" modelObjectNameSpace="jGetDescription" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="125"/>
+    </shape>
+    <shape modelObjectName="pSKAT" modelObjectNameSpace="jGetDescription" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="103"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
