@@ -1,28 +1,39 @@
 	{
-	  "HanaBackendServiceConnection": {
-	    "object_owner" : {
-	      "schema_privileges":[
-	        {
-	          "reference":"SAPABAP1",
-	          "privileges_with_grant_option":["SELECT"]
-	        },
-	        {
-	          "reference":"SN_CFG",
-	          "privileges_with_grant_option":["SELECT"]
-	        }
-	      ]
-	    },
-	    "application_user" : {
-	      "schema_privileges":[
-	        {
-	          "reference":"SAPABAP1",
-	          "privileges_with_grant_option":["SELECT"]
-	        },
-	        {
-	          "reference":"SN_CFG",
-	          "privileges_with_grant_option":["SELECT"]
-	        }
-	      ]
-	    }
-	  }
+		"HanaBackendServiceConnection": {
+			"object_owner": {
+				"schema_privileges": [{
+					"reference": "SAPABAP1",
+					"privileges_with_grant_option": ["SELECT"]
+				}, {
+					"reference": "SN_CFG",
+					"privileges_with_grant_option": ["SELECT"]
+				}, {
+					"reference": "_SYS_BIC",
+					"privileges_with_grant_option": ["SELECT"]
+				}],
+				"object_privileges": [{
+					"schema": "_SYS_BIC",
+					"name": "sn.finance.GMA/GMAAnalysisQuery",
+					"privileges_with_grant_option": ["SELECT"]
+				}]
+
+			},
+			"application_user": {
+				"schema_privileges": [{
+					"reference": "SAPABAP1",
+					"privileges_with_grant_option": ["SELECT"]
+				}, {
+					"reference": "SN_CFG",
+					"privileges_with_grant_option": ["SELECT"]
+				}, {
+					"reference": "_SYS_BIC",
+					"privileges_with_grant_option": ["SELECT"]
+				}],
+				"object_privileges": [{
+					"schema": "_SYS_BIC",
+					"name": "sn.finance.GMA/GMAAnalysisQuery",
+					 "privileges_with_grant_option": ["SELECT"]
+				}]
+			}
+		}
 	}

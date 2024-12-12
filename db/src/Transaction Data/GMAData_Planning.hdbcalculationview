@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="GMAData_Planning" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="GMA Data for Planning"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="GMA_Planning_Table">
+    <resourceUri>GMA_Planning_Table</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <viewAttributes>
+      <viewAttribute id="CompanyCode"/>
+      <viewAttribute id="C_Sold_To"/>
+      <viewAttribute id="ProfitCenter"/>
+      <viewAttribute id="CostCenter"/>
+      <viewAttribute id="PostingDate"/>
+      <viewAttribute id="GLAccount"/>
+      <viewAttribute id="Cost"/>
+      <viewAttribute id="Revenue"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="GMA_Planning_Table"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Projection_1">
+  <attributes>
+    <attribute id="CompanyCode" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Company Code"/>
+      <keyMapping columnObjectName="Projection_1" columnName="CompanyCode"/>
+    </attribute>
+    <attribute id="C_Sold_To" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="C_Sold_To"/>
+      <keyMapping columnObjectName="Projection_1" columnName="C_Sold_To"/>
+    </attribute>
+    <attribute id="ProfitCenter" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Profit Center"/>
+      <keyMapping columnObjectName="Projection_1" columnName="ProfitCenter"/>
+    </attribute>
+    <attribute id="CostCenter" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Cost Center"/>
+      <keyMapping columnObjectName="Projection_1" columnName="CostCenter"/>
+    </attribute>
+    <attribute id="PostingDate" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Posting Date"/>
+      <keyMapping columnObjectName="Projection_1" columnName="PostingDate"/>
+    </attribute>
+    <attribute id="GLAccount" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="G/L Account Number"/>
+      <keyMapping columnObjectName="Projection_1" columnName="GLAccount"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="Cost" order="7" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="COGS"/>
+      <measureMapping columnObjectName="Projection_1" columnName="Cost"/>
+    </measure>
+    <measure id="Revenue" order="8" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Revenue"/>
+      <measureMapping columnObjectName="Projection_1" columnName="Revenue"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="109" y="258"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

@@ -1,0 +1,10 @@
+COLUMN TABLE "GMA_Planning_Table" (
+   "C_Sold_To" NVARCHAR(10),
+   "CompanyCode" NVARCHAR(4),
+   "CostCenter" NVARCHAR(10),
+   "ProfitCenter" NVARCHAR(10) NOT NULL,
+   "GLAccount" NVARCHAR(10) NOT NULL,
+   "PostingDate" NVARCHAR(8) NOT NULL,
+   "Revenue" DECIMAL(13,2),
+   "Cost" DECIMAL(13,2)
+)

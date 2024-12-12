@@ -5,7 +5,9 @@
       {
         "privileges": [
           "SELECT",
-          "EXECUTE"
+          "EXECUTE",
+          "INSERT",
+          "DELETE"
         ]
       }
     ]

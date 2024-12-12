@@ -40,5 +40,17 @@
       "object": "CSKT",
       "schema": "SAPABAP1"
     }
+  },
+  "ACDOCA": {
+    "target": {
+      "object": "ACDOCA",
+      "schema": "SAPABAP1"
+    }
+  },
+  "GMAAnalysisQuery": {
+    "target": {
+      "object": "sn.finance.GMA/GMAAnalysisQuery",
+      "schema": "_SYS_BIC"
+    }
   }
-}
+} 

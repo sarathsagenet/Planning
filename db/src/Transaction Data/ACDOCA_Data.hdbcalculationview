@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="ACDOCA_Data" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="ACDOCA_Data"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="ACDOCA">
+    <resourceUri>ACDOCA</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="pACDOCA" filterExpressionLanguage="SQL">
+    <viewAttributes>
+      <viewAttribute id="RCLNT"/>
+      <viewAttribute id="RBUKRS"/>
+      <viewAttribute id="BUDAT"/>
+      <viewAttribute id="RACCT"/>
+      <viewAttribute id="HSL"/>
+      <viewAttribute id="RCNTR"/>
+      <viewAttribute id="PRCTR"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="ACDOCA"/>
+    <filter>(&quot;RACCT&quot; &gt;= '0000600000' AND &quot;RACCT&quot; &lt;= '0000799999') AND (&quot;BUDAT&quot; &gt; '20230101')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="pCalculations">
+    <viewAttributes>
+      <viewAttribute id="RCLNT"/>
+      <viewAttribute id="RBUKRS"/>
+      <viewAttribute id="BUDAT"/>
+      <viewAttribute id="RACCT"/>
+      <viewAttribute id="HSL"/>
+      <viewAttribute id="RCNTR"/>
+      <viewAttribute id="PRCTR"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="CompanyCode" datatype="NVARCHAR" length="4" expressionLanguage="SQL">
+        <formula>LTRIM(&quot;RBUKRS&quot;,'0')</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="ProfitCenter" datatype="NVARCHAR" length="10" expressionLanguage="SQL">
+        <formula>LTRIM(&quot;PRCTR&quot;,'0')</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="CostCenter" datatype="NVARCHAR" length="10" expressionLanguage="SQL">
+        <formula>LTRIM(&quot;RCNTR&quot;,'0')</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="GLAccount" datatype="NVARCHAR" length="10" expressionLanguage="SQL">
+        <formula>LTRIM(&quot;RACCT&quot;,'0')</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="pACDOCA"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="pCalculations">
+  <attributes>
+    <attribute id="RCLNT" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="RCLNT"/>
+      <keyMapping columnObjectName="pCalculations" columnName="RCLNT"/>
+    </attribute>
+    <attribute id="RBUKRS" order="2" displayAttribute="false" attributeHierarchyActive="false" hidden="true">
+      <descriptions defaultDescription="RBUKRS"/>
+      <keyMapping columnObjectName="pCalculations" columnName="RBUKRS"/>
+    </attribute>
+    <attribute id="BUDAT" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="BUDAT"/>
+      <keyMapping columnObjectName="pCalculations" columnName="BUDAT"/>
+    </attribute>
+    <attribute id="RACCT" order="4" displayAttribute="false" attributeHierarchyActive="false" hidden="true">
+      <descriptions defaultDescription="RACCT"/>
+      <keyMapping columnObjectName="pCalculations" columnName="RACCT"/>
+    </attribute>
+    <attribute id="RCNTR" order="6" displayAttribute="false" attributeHierarchyActive="false" hidden="true">
+      <descriptions defaultDescription="RCNTR"/>
+      <keyMapping columnObjectName="pCalculations" columnName="RCNTR"/>
+    </attribute>
+    <attribute id="PRCTR" order="7" displayAttribute="false" attributeHierarchyActive="false" hidden="true">
+      <descriptions defaultDescription="PRCTR"/>
+      <keyMapping columnObjectName="pCalculations" columnName="PRCTR"/>
+    </attribute>
+  
+    <attribute id="CompanyCode" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CompanyCode"/>
+      <keyMapping columnObjectName="pCalculations" columnName="CompanyCode"/>
+    </attribute>
+    <attribute id="ProfitCenter" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ProfitCenter"/>
+      <keyMapping columnObjectName="pCalculations" columnName="ProfitCenter"/>
+    </attribute>
+    <attribute id="CostCenter" order="10" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CostCenter"/>
+      <keyMapping columnObjectName="pCalculations" columnName="CostCenter"/>
+    </attribute>
+    <attribute id="GLAccount" order="11" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="GLAccount"/>
+      <keyMapping columnObjectName="pCalculations" columnName="GLAccount"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="HSL" order="5" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="HSL"/>
+      <measureMapping columnObjectName="pCalculations" columnName="HSL"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="92" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="pACDOCA" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="322"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="pCalculations" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
